@@ -14,17 +14,23 @@ namespace XmlDataExtractorCsv
                 foreach (string path in paths)
                 {
                     XMLOperations xmlOps = new XMLOperations(path);
+                    Console.WriteLine($"Reading {Path.GetFileName(path)}");
                     List<CSVViewModel> records = xmlOps.ExtractXMLData();
 
                     string csvPath = GetCSVFilePath(path);
                     CSVOperations csvOps = new CSVOperations(csvPath);
                     csvOps.WriteRecord(records);
+                    Console.WriteLine($"File {Path.GetFileName(csvPath)} has been created");
                 }
+
+                Console.WriteLine($"Total of ({paths.Length}) file(s) have been processed");
+                Console.ReadLine();
             }
             else
             {
                 Console.WriteLine("Empty Input folder");
             }
+
         }
 
         static private string[] ReadFilePaths()
